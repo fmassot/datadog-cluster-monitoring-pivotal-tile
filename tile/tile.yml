@@ -1114,8 +1114,6 @@ packages:
         enable_metadata_app_metrics_prefix : (( .properties.enable_metadata_app_metrics_prefix.value ))
         bosh_tags:
           enabled: (( .properties.nozzle_bosh_tags_enabled.value ))
-          address_tag: (( .properties.address_tag.value ))
-          ip_tag: (( .properties.ip_tag.value ))
           friendly_hostname: (( .properties.use_friendly_hostname.value ))
           unique_friendly_hostname: (( .properties.unique_friendly_hostname.value ))
           friendly_hostname_append_guid: (( .properties.friendly_hostname_append_vm_guid.value ))
