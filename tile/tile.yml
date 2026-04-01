@@ -286,45 +286,14 @@ forms:
       Enable BOSH tag generation for CloudPrem logs.
       When enabled, tags and hostname are generated from envelope metadata
       to replicate the Datadog SaaS behavior which enriches logs after ingestion.
+      Hostname and tag options (friendly hostname, IP tag, address tag, etc.) are
+      shared with the Datadog Agent and configured in the "Datadog Agent Config" tab.
   - name: nozzle_bosh_tags_prefix
     type: string
     label: BOSH Tags Prefix
     default: "bosh_"
     optional: true
     description: Prefix for BOSH tags (e.g. bosh_id, bosh_job, bosh_az).
-  - name: nozzle_bosh_tags_address_tag
-    type: boolean
-    label: Include Address Tag in BOSH Tags
-    default: true
-    description: Include a tag with the DNS address of the VM in BOSH tags.
-  - name: nozzle_bosh_tags_ip_tag
-    type: boolean
-    label: Include IP Tag in BOSH Tags
-    default: true
-    description: Include a tag with the IP address of the VM in BOSH tags.
-  - name: nozzle_bosh_tags_friendly_hostname
-    type: boolean
-    label: Generate Friendly Hostname for Logs
-    default: true
-    description: |
-      Generate a friendly hostname in the form <job>-<index> for logs.
-  - name: nozzle_bosh_tags_unique_friendly_hostname
-    type: boolean
-    label: Make Friendly Hostname Unique
-    default: false
-    description: |
-      Append the deployment name to the friendly hostname to make it unique across deployments.
-  - name: nozzle_bosh_tags_friendly_hostname_append_guid
-    type: boolean
-    label: Append VM GUID to Friendly Hostname
-    default: false
-    description: |
-      Append the VM GUID to the friendly hostname to make it globally unique.
-  - name: nozzle_bosh_tags_use_uuid_hostname
-    type: boolean
-    label: Use UUID as Hostname for Logs
-    default: false
-    description: Use the BOSH VM UUID as the hostname for logs.
   - name: nozzle_bosh_tags_custom_hostname
     type: string
     label: Custom Hostname for Logs
@@ -1162,12 +1131,12 @@ packages:
         bosh_tags:
           enabled: (( .properties.nozzle_bosh_tags_enabled.value ))
           prefix: (( .properties.nozzle_bosh_tags_prefix.value ))
-          address_tag: (( .properties.nozzle_bosh_tags_address_tag.value ))
-          ip_tag: (( .properties.nozzle_bosh_tags_ip_tag.value ))
-          friendly_hostname: (( .properties.nozzle_bosh_tags_friendly_hostname.value ))
-          unique_friendly_hostname: (( .properties.nozzle_bosh_tags_unique_friendly_hostname.value ))
-          friendly_hostname_append_guid: (( .properties.nozzle_bosh_tags_friendly_hostname_append_guid.value ))
-          use_uuid_hostname: (( .properties.nozzle_bosh_tags_use_uuid_hostname.value ))
+          address_tag: (( .properties.address_tag.value ))
+          ip_tag: (( .properties.ip_tag.value ))
+          friendly_hostname: (( .properties.use_friendly_hostname.value ))
+          unique_friendly_hostname: (( .properties.unique_friendly_hostname.value ))
+          friendly_hostname_append_guid: (( .properties.friendly_hostname_append_vm_guid.value ))
+          use_uuid_hostname: (( .properties.use_uuid_hostname.value ))
           custom_hostname: (( .properties.nozzle_bosh_tags_custom_hostname.value ))
           custom_tags: (( .properties.nozzle_bosh_tags_custom_tags.parsed_strings ))
       uaa:
